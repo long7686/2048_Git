@@ -159,7 +159,11 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 538.6678011539209
+<<<<<<< Updated upstream
+      "z": 377.5812114396144
+=======
+      "z": 377.5870760500153
+>>>>>>> Stashed changes
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -512,8 +516,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 48.998,
-      "y": 250,
+      "x": 19.307,
+      "y": 248.016,
       "z": 0
     },
     "_scale": {
@@ -1052,7 +1056,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -90,
+      "y": -60.62,
       "z": 0
     },
     "_scale": {
@@ -1135,7 +1139,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
+      "width": 110,
       "height": 40
     },
     "_anchorPoint": {
@@ -1145,8 +1149,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 220,
-      "y": 160,
+      "x": 0,
+      "y": 168.087,
       "z": 0
     },
     "_scale": {
@@ -1193,14 +1197,14 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
+      "width": 110,
       "height": 40
     },
     "_anchorPoint": {
@@ -1251,9 +1255,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
@@ -1315,7 +1319,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Monospace",
+    "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
     "_id": "1b/D0SEC1Ai7MWP0AQ3kTY"
@@ -1396,41 +1400,41 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 230,
+      "g": 230,
+      "b": 230,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 99,
-      "g": 81,
-      "b": 64,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 99,
-      "g": 81,
-      "b": 64,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "_N$hoverColor": {
       "__type__": "cc.Color",
-      "r": 150,
-      "g": 123,
-      "b": 97,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "hoverColor": {
       "__type__": "cc.Color",
-      "r": 150,
-      "g": 123,
-      "b": 97,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$disabledColor": {
@@ -1603,15 +1607,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 14,
-      "g": 14,
-      "b": 14,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 305.67,
-      "height": 88.2
+      "width": 198.69,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1658,8 +1662,8 @@
     "_useOriginalSize": false,
     "_string": "You Lose!!!",
     "_N$string": "You Lose!!!",
-    "_fontSize": 70,
-    "_lineHeight": 70,
+    "_fontSize": 40,
+    "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1667,7 +1671,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Fantasy",
+    "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
     "_id": "bcsM7DpGVL57O8jBkH3uzV"
@@ -1713,7 +1717,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -100,
+      "y": -60.335,
       "z": 0
     },
     "_scale": {
@@ -1760,9 +1764,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1818,9 +1822,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 224,
-      "g": 217,
-      "b": 217,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
@@ -1963,41 +1967,41 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 230,
+      "g": 230,
+      "b": 230,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 90,
-      "g": 77,
-      "b": 65,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 90,
-      "g": 77,
-      "b": 65,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "_N$hoverColor": {
       "__type__": "cc.Color",
-      "r": 163,
-      "g": 139,
-      "b": 115,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "hoverColor": {
       "__type__": "cc.Color",
-      "r": 163,
-      "g": 139,
-      "b": 115,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$disabledColor": {
@@ -2106,7 +2110,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Win Label",
+    "_name": "Lose Label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 44
@@ -2123,15 +2127,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 287.31,
-      "height": 88.2
+      "width": 180.84,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2178,8 +2182,8 @@
     "_useOriginalSize": false,
     "_string": "You Win!!!",
     "_N$string": "You Win!!!",
-    "_fontSize": 70,
-    "_lineHeight": 70,
+    "_fontSize": 40,
+    "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -2187,7 +2191,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Fantasy",
+    "_N$fontFamily": "Arial",
     "_N$overflow": 0,
     "_N$cacheMode": 0,
     "_id": "52jFYK2ANANKRuIQ+Ftmdg"
@@ -2232,8 +2236,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 70,
-      "y": -100,
+      "x": 82.055,
+      "y": -70.073,
       "z": 0
     },
     "_scale": {
@@ -2280,9 +2284,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -2338,9 +2342,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
@@ -2483,41 +2487,41 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 230,
+      "g": 230,
+      "b": 230,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 95,
-      "g": 79,
-      "b": 63,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 95,
-      "g": 79,
-      "b": 63,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "_N$hoverColor": {
       "__type__": "cc.Color",
-      "r": 177,
-      "g": 149,
-      "b": 123,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "hoverColor": {
       "__type__": "cc.Color",
-      "r": 177,
-      "g": 149,
-      "b": 123,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$disabledColor": {
@@ -2562,7 +2566,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ContinueBtn copy",
+    "_name": "ContinueBtn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 44
@@ -2600,8 +2604,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -70,
-      "y": -100,
+      "x": -69.988,
+      "y": -71.618,
       "z": 0
     },
     "_scale": {
@@ -2648,9 +2652,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -2706,9 +2710,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
@@ -2851,41 +2855,41 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 124,
-      "g": 103,
-      "b": 83,
+      "r": 230,
+      "g": 230,
+      "b": 230,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 83,
-      "g": 69,
-      "b": 56,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 83,
-      "g": 69,
-      "b": 56,
+      "r": 200,
+      "g": 200,
+      "b": 200,
       "a": 255
     },
     "_N$hoverColor": {
       "__type__": "cc.Color",
-      "r": 155,
-      "g": 126,
-      "b": 99,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "hoverColor": {
       "__type__": "cc.Color",
-      "r": 155,
-      "g": 126,
-      "b": 99,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$disabledColor": {
