@@ -648,7 +648,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 21.45,
+      "width": 100,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -706,7 +706,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Fantasy",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": "72lUZBU81C9Jx7TIkUidRI"
   },
@@ -921,7 +921,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 21.45,
+      "width": 150,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -979,7 +979,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Fantasy",
-    "_N$overflow": 0,
+    "_N$overflow": 2,
     "_N$cacheMode": 0,
     "_id": "f2Msnh5tdGfpKaiUrWzTVp"
   },
@@ -1502,6 +1502,9 @@
     "winLayOut": {
       "__id__": 44
     },
+    "hoverScorePrefab": {
+      "__uuid__": "27aa0905-8005-4696-8843-1667abc98d29"
+    },
     "_blockSize": null,
     "_data": [],
     "_arrBlock": [],
@@ -1516,6 +1519,8 @@
     "_endY": null,
     "_vector": null,
     "_first2048": true,
+    "_isCLick": true,
+    "_tempScore": 0,
     "_id": "a0gETN2uNEr4BB1NPa8GPv"
   },
   {

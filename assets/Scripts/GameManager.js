@@ -18,6 +18,7 @@ cc.Class({
         cellPrefab: cc.Prefab,
         loseLayOut: cc.Node,
         winLayOut: cc.Node,
+        hoverScorePrefab: cc.Prefab,
 
         _gap: {
             default: 10,
@@ -36,15 +37,17 @@ cc.Class({
         _endX: null,
         _endY: null,
         _vector: null,
-        _first2048: true
+        _first2048: true,
+        _isCLick: true,
+        _tempScore: 0,
     },
 
     onLoad() {
         this._canMove = true;
         this.loseLayOut.active = false;
-        this._isTouch = true;
         this._isCLick = true;
         this._first2048 = true;
+        this._tempScore = 0;
     },
 
     start() {
@@ -143,6 +146,21 @@ cc.Class({
         this.scoreLabel.string = num;
     },
 
+    hoverScore(num) {
+        if (num !== 0) {
+            let hoverScore = cc.instantiate(this.hoverScorePrefab);
+            hoverScore.parent = this.scoreLabel.node;
+            hoverScore.getComponent(cc.Label).string = "+ " + num;
+            cc.tween(hoverScore)
+                .to(1, { position: cc.v2(50, 50) })
+                .call(() => {
+                    cc.log("123")
+                    hoverScore.destroy()
+                })
+                .start()
+        }
+    },
+
     eventHandler() {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
 
@@ -161,11 +179,13 @@ cc.Class({
         }
         if (cc.sys.IPAD || cc.sys.DESKTOP_BROWSER) {
             this.bgBox.on("mousedown", (event) => {
+                this._isCLick = false;
                 this._startPoint = event.getLocation();
                 this._firstX = this._startPoint.x;
                 this._firstY = this._startPoint.y;
             })
             this.bgBox.on("mouseup", (event) => {
+                this._isCLick = true;
                 this._endPoint = event.getLocation();
                 this._endX = this._startPoint.x - this._endPoint.x;
                 this._endY = this._startPoint.y - this._endPoint.y;
@@ -192,34 +212,35 @@ cc.Class({
     },
 
     onKeyDown(event) {
-        switch (event.keyCode) {
-            case cc.macro.KEY.right:
-                if (this._canMove) {
-                    this._canMove = false
-                    this.blockMoveRight();
-                }
-                break;
-            case cc.macro.KEY.left:
-                if (this._canMove) {
-                    this._canMove = false
-                    this.blockMoveLeft();
-                }
+        if (this._isCLick) {
+            switch (event.keyCode) {
+                case cc.macro.KEY.right:
+                    if (this._canMove) {
+                        this._canMove = false
+                        this.blockMoveRight();
+                    }
+                    break;
+                case cc.macro.KEY.left:
+                    if (this._canMove) {
+                        this._canMove = false
+                        this.blockMoveLeft();
+                    }
 
-                break;
-            case cc.macro.KEY.up:
-                if (this._canMove) {
-                    this._canMove = false
-                    this.blockMoveUp();
-                }
-                break;
-            case cc.macro.KEY.down:
-                if (this._canMove) {
-                    this._canMove = false
-                    this.blockMoveDown();
-                }
-                break;
-        };
-
+                    break;
+                case cc.macro.KEY.up:
+                    if (this._canMove) {
+                        this._canMove = false
+                        this.blockMoveUp();
+                    }
+                    break;
+                case cc.macro.KEY.down:
+                    if (this._canMove) {
+                        this._canMove = false
+                        this.blockMoveDown();
+                    }
+                    break;
+            };
+        }
     },
 
     touchEvent(direction) {
@@ -279,13 +300,14 @@ cc.Class({
         this._canMove = true
         if (this.winLayOut.active || this.loseLayOut.active) this._canMove = false;
         if (hasMoved) {
-            this.updateScore(this._score + 1);
             this.addBlock();
             this.checkScore();
         }
         else if (this.checkGameOver()) {
             this.gameOver()
         }
+        // this.hoverScore(this._tempScore);
+        // this._tempScore = 0;
     },
 
     moveBlock(block, position, callback) {
@@ -294,11 +316,15 @@ cc.Class({
             callback && callback();
         })
         block.runAction(cc.sequence(action, finish));
-        
-        
+
+
     },
 
     combineBlock(b1, b2, num, callback) {
+        this._tempScore += num;
+        this.updateScore(this._score + num);
+        this.hoverScore(this._tempScore);
+        this._tempScore = 0;
         b1.destroy();
         let scale1 = cc.scaleTo(0.1, 1.1);
         let scale2 = cc.scaleTo(0.1, 1);
@@ -308,7 +334,7 @@ cc.Class({
         let finish = cc.callFunc(() => {
             callback && callback();
         })
-        if (b2 !== null){
+        if (b2 !== null) {
             b2.runAction(cc.sequence(scale1, mid, scale2, finish));
         }
         if (this._first2048) {
@@ -317,6 +343,7 @@ cc.Class({
                 this._first2048 = false;
             }
         }
+        
     },
 
     activeCombine() {
@@ -467,7 +494,7 @@ cc.Class({
                     this.afterMove(hasMoved);
                 }
             })
-        }        
+        }
     },
 
     blockMoveDown() {
