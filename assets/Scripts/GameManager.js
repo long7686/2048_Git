@@ -43,6 +43,8 @@ cc.Class({
     },
 
     onLoad() {
+        this.winLayOut.active = false;
+        this.loseLayOut.active = false;
         this._canMove = true;
         this.loseLayOut.active = false;
         this._isCLick = true;
@@ -52,7 +54,6 @@ cc.Class({
 
     start() {
         this._blockSize = (this.bgBox.width - this._gap * 5) / 4;
-
         this.eventHandler();
         this.getScoreStorge();
         this.blockInit();
@@ -137,6 +138,9 @@ cc.Class({
         block.getComponent("BlockController").setNumber(number);
         this._arrBlock[x][y] = block;
         this._data[x][y] = number;
+        if (this.checkGameOver()) {
+            this.gameOver()
+        }
 
         return true;
     },
@@ -154,7 +158,6 @@ cc.Class({
             cc.tween(hoverScore)
                 .to(1, { position: cc.v2(50, 50) })
                 .call(() => {
-                    cc.log("123")
                     hoverScore.destroy()
                 })
                 .start()
@@ -165,26 +168,26 @@ cc.Class({
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
 
         if (cc.sys.isMobile) {
-            this.bgBox.on("touchstart", (event) => {
+            cc.Canvas.instance.node.on("touchstart", (event) => {
                 this._startPoint = event.getLocation();
             })
-            this.bgBox.on("touchend", (event) => {
+            cc.Canvas.instance.node.on("touchend", (event) => {
                 this._endPoint = event.getLocation();
                 this.reflectTouch();
             })
-            this.bgBox.on("touchcancel", (event) => {
+            cc.Canvas.instance.node.on("touchcancel", (event) => {
                 this._endPoint = event.getLocation();
                 this.reflectTouch();
             })
         }
         if (cc.sys.IPAD || cc.sys.DESKTOP_BROWSER) {
-            this.bgBox.on("mousedown", (event) => {
+            cc.Canvas.instance.node.on("mousedown", (event) => {
                 this._isCLick = false;
                 this._startPoint = event.getLocation();
                 this._firstX = this._startPoint.x;
                 this._firstY = this._startPoint.y;
             })
-            this.bgBox.on("mouseup", (event) => {
+            cc.Canvas.instance.node.on("mouseup", (event) => {
                 this._isCLick = true;
                 this._endPoint = event.getLocation();
                 this._endX = this._startPoint.x - this._endPoint.x;
@@ -213,65 +216,46 @@ cc.Class({
 
     onKeyDown(event) {
         if (this._isCLick) {
-            switch (event.keyCode) {
-                case cc.macro.KEY.right:
-                    if (this._canMove) {
-                        this._canMove = false
+            if (this._canMove) {
+                this._canMove = false
+                switch (event.keyCode) {
+                    case cc.macro.KEY.right:
                         this.blockMoveRight();
-                    }
-                    break;
-                case cc.macro.KEY.left:
-                    if (this._canMove) {
-                        this._canMove = false
+                        break;
+                    case cc.macro.KEY.left:
                         this.blockMoveLeft();
-                    }
-
-                    break;
-                case cc.macro.KEY.up:
-                    if (this._canMove) {
-                        this._canMove = false
+                        break;
+                    case cc.macro.KEY.up:
                         this.blockMoveUp();
-                    }
-                    break;
-                case cc.macro.KEY.down:
-                    if (this._canMove) {
-                        this._canMove = false
+                        break;
+                    case cc.macro.KEY.down:
                         this.blockMoveDown();
-                    }
-                    break;
-            };
+                        break;
+                };
+            }
         }
     },
 
     touchEvent(direction) {
-        switch (direction) {
-            case DIRECTION.RIGHT: {
-                if (this._canMove) {
-                    this._canMove = false
+        if (this._canMove) {
+            this._canMove = false
+            switch (direction) {
+                case DIRECTION.RIGHT: {
                     this.blockMoveRight();
+                    break;
                 }
-                break;
-            }
-            case DIRECTION.LEFT: {
-                if (this._canMove) {
-                    this._canMove = false
+                case DIRECTION.LEFT: {
                     this.blockMoveLeft();
+                    break;
                 }
-                break;
-            }
-            case DIRECTION.UP: {
-                if (this._canMove) {
-                    this._canMove = false
+                case DIRECTION.UP: {
                     this.blockMoveUp();
+                    break;
                 }
-                break;
-            }
-            case DIRECTION.DOWN: {
-                if (this._canMove) {
-                    this._canMove = false
+                case DIRECTION.DOWN: {
                     this.blockMoveDown();
+                    break;
                 }
-                break;
             }
         }
     },
@@ -303,11 +287,6 @@ cc.Class({
             this.addBlock();
             this.checkScore();
         }
-        else if (this.checkGameOver()) {
-            this.gameOver()
-        }
-        // this.hoverScore(this._tempScore);
-        // this._tempScore = 0;
     },
 
     moveBlock(block, position, callback) {
@@ -343,7 +322,7 @@ cc.Class({
                 this._first2048 = false;
             }
         }
-        
+
     },
 
     activeCombine() {
