@@ -263,16 +263,19 @@ cc.Class({
     mouseEvent() {
         if (this._vector.mag() > MIN_LENGTH) {
             if (this._canMove) {
+                let angle = Math.atan2(this._vector.y, this._vector.x);
+                angle = cc.misc.radiansToDegrees(angle)
+                cc.log(angle)
                 this._canMove = false;
-                if (this._vector.x < 0) {
+                if ((angle < -135 && angle >= -180) || (angle <= 180 && angle >= 135)) {
                     this.blockMoveRight();
-                } else if (this._vector.x > 0) {
+                } else if (angle < 45 && angle >= -45) {
                     this.blockMoveLeft();
                 }
-                else if (this._vector.y < 0) {
+                else if (angle < -45 && angle >= -135) {
                     this.blockMoveUp();
                 }
-                else if (this._vector.y > 0) {
+                else if (angle < 135 && angle >= 45) {
                     this.blockMoveDown();
                 }
             }
