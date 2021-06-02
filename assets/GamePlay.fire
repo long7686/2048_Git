@@ -159,7 +159,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 377.5812114396144
+      "z": 538.6678011539209
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -512,8 +512,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 19.307,
-      "y": 248.016,
+      "x": 48.998,
+      "y": 250,
       "z": 0
     },
     "_scale": {
@@ -1052,7 +1052,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -60.62,
+      "y": -90,
       "z": 0
     },
     "_scale": {
@@ -1135,7 +1135,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 120,
       "height": 40
     },
     "_anchorPoint": {
@@ -1145,8 +1145,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 168.087,
+      "x": 220,
+      "y": 160,
       "z": 0
     },
     "_scale": {
@@ -1193,14 +1193,14 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 124,
+      "g": 103,
+      "b": 83,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 120,
       "height": 40
     },
     "_anchorPoint": {
@@ -1251,9 +1251,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1315,7 +1315,7 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "Monospace",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
     "_id": "1b/D0SEC1Ai7MWP0AQ3kTY"
@@ -1396,41 +1396,41 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 2,
-    "transition": 2,
+    "_N$transition": 1,
+    "transition": 1,
     "_N$normalColor": {
       "__type__": "cc.Color",
-      "r": 230,
-      "g": 230,
-      "b": 230,
+      "r": 124,
+      "g": 103,
+      "b": 83,
       "a": 255
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 200,
-      "g": 200,
-      "b": 200,
+      "r": 99,
+      "g": 81,
+      "b": 64,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 200,
-      "g": 200,
-      "b": 200,
+      "r": 99,
+      "g": 81,
+      "b": 64,
       "a": 255
     },
     "_N$hoverColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 150,
+      "g": 123,
+      "b": 97,
       "a": 255
     },
     "hoverColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 150,
+      "g": 123,
+      "b": 97,
       "a": 255
     },
     "_N$disabledColor": {
