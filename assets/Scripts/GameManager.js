@@ -264,15 +264,15 @@ cc.Class({
         if (this._vector.mag() > MIN_LENGTH) {
             if (this._canMove) {
                 this._canMove = false;
-                if (this._vector.x < 0 && this._vector.y < 50 && this._vector.y > -50) {
+                if (this._vector.x < 0) {
                     this.blockMoveRight();
-                } else if (this._vector.x > 0 && this._vector.y < 50 && this._vector.y > -50) {
+                } else if (this._vector.x > 0) {
                     this.blockMoveLeft();
                 }
-                else if (this._vector.y < 0 && this._vector.x < 50 && this._vector.x > -50) {
+                else if (this._vector.y < 0) {
                     this.blockMoveUp();
                 }
-                else if (this._vector.y > 0 && this._vector.x < 50 && this._vector.x > -50) {
+                else if (this._vector.y > 0) {
                     this.blockMoveDown();
                 }
             }
