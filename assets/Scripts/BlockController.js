@@ -7,14 +7,14 @@ cc.Class({
         titleBlock :{
             default : null,
             type : cc.Label,
-            _canCombine: false,
+            _canCombine: true,
         },
     },
 
-
-    onLoad () {
-        this._canCombine = false;
+    onLoad(){
+        this._canCombine = true;
     },
+
 
     setNumber(number){
         if(number === 0){

@@ -1518,7 +1518,6 @@
     "_endX": null,
     "_endY": null,
     "_vector": null,
-    "_first2048": true,
     "_isCLick": true,
     "_tempScore": 0,
     "_id": "a0gETN2uNEr4BB1NPa8GPv"
@@ -1538,7 +1537,7 @@
         "__id__": 36
       }
     ],
-    "_active": false,
+    "_active": true,
     "_level": 2,
     "_components": [],
     "_prefab": null,
@@ -1610,7 +1609,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 324.57,
+      "width": 267.87,
       "height": 88.2
     },
     "_anchorPoint": {
@@ -1656,8 +1655,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "You Lose!!!!",
-    "_N$string": "You Lose!!!!",
+    "_string": "You Lose!",
+    "_N$string": "You Lose!",
     "_fontSize": 70,
     "_lineHeight": 70,
     "_enableWrapText": true,
@@ -1674,7 +1673,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "RestartBtn",
+    "_name": "Restart Button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 33
@@ -1702,7 +1701,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 120,
       "height": 40
     },
     "_anchorPoint": {
@@ -1713,7 +1712,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -100,
+      "y": -70,
       "z": 0
     },
     "_scale": {
@@ -1732,7 +1731,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "4e5qfFYcJA1peGERATZ8x5"
+    "_id": "b2Dol3GO1McJdfipCLmsPY"
   },
   {
     "__type__": "cc.Node",
@@ -1767,7 +1766,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 120,
       "height": 40
     },
     "_anchorPoint": {
@@ -1797,7 +1796,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "00xwYJhCBCVJhvjsqENL6Y"
+    "_id": "bcoZSwBh9GN6yrwmv+mztH"
   },
   {
     "__type__": "cc.Node",
@@ -1818,9 +1817,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 224,
-      "g": 217,
-      "b": 217,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1855,7 +1854,7 @@
     "_skewY": 0,
     "_is3DNode": false,
     "groupIndex": 0,
-    "_id": "a6VVWMT1tJ/5cwQ2zmuHkG"
+    "_id": "ae+LEcuE9A1ZKr82H8YuBH"
   },
   {
     "__type__": "cc.Label",
@@ -1882,10 +1881,10 @@
     "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "Monospace",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "495arh04hK95UrN252sCti"
+    "_id": "14YpOekPZCAZ6xOL0gIdqt"
   },
   {
     "__type__": "cc.Sprite",
@@ -1917,7 +1916,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "74OU+zUy5H/Ypye203jn39"
+    "_id": "70/FopPjRGvoXKTzO3vAr1"
   },
   {
     "__type__": "cc.Widget",
@@ -1944,7 +1943,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "eela1zvstIfLjLQlbyh0jx"
+    "_id": "de7aRa6PJNSIIwq4giumDb"
   },
   {
     "__type__": "cc.Button",
@@ -1974,30 +1973,30 @@
     },
     "_N$pressedColor": {
       "__type__": "cc.Color",
-      "r": 90,
-      "g": 77,
-      "b": 65,
+      "r": 99,
+      "g": 81,
+      "b": 64,
       "a": 255
     },
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 90,
-      "g": 77,
-      "b": 65,
+      "r": 99,
+      "g": 81,
+      "b": 64,
       "a": 255
     },
     "_N$hoverColor": {
       "__type__": "cc.Color",
-      "r": 163,
-      "g": 139,
-      "b": 115,
+      "r": 150,
+      "g": 123,
+      "b": 97,
       "a": 255
     },
     "hoverColor": {
       "__type__": "cc.Color",
-      "r": 163,
-      "g": 139,
-      "b": 115,
+      "r": 150,
+      "g": 123,
+      "b": 97,
       "a": 255
     },
     "_N$disabledColor": {
@@ -2028,7 +2027,7 @@
     "_N$target": {
       "__id__": 37
     },
-    "_id": "9fP29bVHRLnaeaLSgb1fiP"
+    "_id": "d5Rogqau9CwpuMe94ikXBO"
   },
   {
     "__type__": "cc.ClickEvent",

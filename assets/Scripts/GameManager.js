@@ -1,3 +1,4 @@
+//Dong
 const ROWS = 4;
 const DIRECTION = cc.Enum({
     RIGHT: -1,
@@ -11,56 +12,53 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        scoreLabel: cc.Label,
-        bestScoreLabel: cc.Label,
-        blockPrefab: cc.Prefab,
-        bgBox: cc.Node,
-        cellPrefab: cc.Prefab,
+        scoreLabel : cc.Label,
+        bestScoreLabel : cc.Label,
+        blockPrefab : cc.Prefab,
+        bgBox : cc.Node,
+        cellPrefab : cc.Prefab,
         loseLayOut: cc.Node,
         winLayOut: cc.Node,
-        hoverScorePrefab: cc.Prefab,
+        hoverScorePrefab : cc.Prefab,
 
-        _gap: {
-            default: 10,
-            serializable: false,
+        _gap :{
+            default : 10,
+            serializable : false,
         },
-        _blockSize: null,
+        _blockSize : null,
         _data: [],
-        _arrBlock: [],
-        _posisions: [],
-        _score: null,
-        _canMove: true,
-        _startPoint: null,
-        _endPoint: null,
-        _firstX: null,
-        _firstY: null,
-        _endX: null,
-        _endY: null,
-        _vector: null,
-        _first2048: true,
-        _isCLick: true,
-        _tempScore: 0,
+        _arrBlock : [],
+        _posisions : [],
+        _score : null,
+        _canMove : true,
+        _startPoint : null,
+        _endPoint : null,
+        _firstX : null,
+        _firstY : null,
+        _endX : null,
+        _endY : null,
+        _vector : null,
+        _isCLick : true,
+        _tempScore : 0,
     },
 
-    onLoad() {
-        this.winLayOut.active = false;
-        this.loseLayOut.active = false;
+    onLoad(){
         this._canMove = true;
         this.loseLayOut.active = false;
         this._isCLick = true;
-        this._first2048 = true;
         this._tempScore = 0;
     },
-
-    start() {
+    
+    start () {
         this._blockSize = (this.bgBox.width - this._gap * 5) / 4;
+       
         this.eventHandler();
         this.getScoreStorge();
         this.blockInit();
         this.init();
     },
 
-    arrInit(x, y) {
+    arrInit(x, y){
         let blockArr = new Array();
         for (let i = 0; i < x; i++) {
             blockArr[i] = new Array();
@@ -71,25 +69,26 @@ cc.Class({
         return blockArr;
     },
 
-    init() {
+    init(){
         this.updateScore(0);
-        this._data = this.arrInit(ROWS, ROWS);
+        this._data = this. arrInit(ROWS, ROWS);
         for (let row = 0; row < ROWS; row++) {
             for (let col = 0; col < ROWS; col++) {
-                this._arrBlock[row][col].getComponent("BlockController").setNumber(0);
-                this._data[row][col] = 0;
+                this._arrBlock[row][col].getComponent("BlockController").setNumber(0);    
+                this._data[row][col] = 0;          
             }
-        };
+        };   
         this.addBlock();
         this.addBlock();
+       
     },
 
-    blockInit() {
+    blockInit(){
         this._arrBlock = this.arrInit(ROWS, ROWS);
 
-        for (let i = 0; i < ROWS; i++) {
-            this._posisions.push([0, 0, 0, 0]);
-            for (let j = 0; j < ROWS; j++) {
+        for(let i = 0; i < ROWS; i++){
+            this._posisions.push([0,0,0,0]);
+            for(let j = 0; j < ROWS; j++){
                 let x = -(this.bgBox.width / 2) + (this._gap * (j + 1) + this._blockSize / 2 * (2 * j + 1));
                 let y = (this.bgBox.height / 2) - (this._gap * (i + 1) + this._blockSize / 2 * (2 * i + 1));
                 let block = cc.instantiate(this.blockPrefab);
@@ -102,27 +101,27 @@ cc.Class({
                 this._arrBlock[i][j] = (block);
             }
         }
-
+       
     },
 
-    getEmptyLocations() {
+    getEmptyLocations(){
         let locations = [];
         for (let row = 0; row < ROWS; row++) {
             for (let col = 0; col < ROWS; col++) {
-                if (this._data[row][col] === 0) {
+                if(this._data[row][col] === 0){
                     locations.push({
-                        x: row,
-                        y: col,
+                        x : row,
+                        y : col,
                     })
-                }
+                }                
             }
         }
         return locations;
     },
 
-    addBlock() {
+    addBlock(){
         let locations = this.getEmptyLocations();
-        if (locations.length === 0) return false;
+        if(locations.length === 0) return false;
 
         let location = locations[Math.floor(Math.random() * locations.length)];
         let x = location.x;
@@ -133,19 +132,16 @@ cc.Class({
         block.height = this._blockSize;
         block.parent = this.bgBox;
         block.setPosition(position);
-
-        let number = Math.random() <= 0.9 ? 2 : 4;
+        
+        let number = Math.random() <= 0.95 ? 2 : 4;
         block.getComponent("BlockController").setNumber(number);
         this._arrBlock[x][y] = block;
         this._data[x][y] = number;
-        if (this.checkGameOver()) {
-            this.gameOver()
-        }
 
         return true;
     },
 
-    updateScore(num) {
+    updateScore(num){
         this._score = num;
         this.scoreLabel.string = num;
     },
@@ -164,30 +160,30 @@ cc.Class({
         }
     },
 
-    eventHandler() {
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
-
-        if (cc.sys.isMobile) {
-            cc.Canvas.instance.node.on("touchstart", (event) => {
+    eventHandler(){
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
+      
+        if(cc.sys.isMobile){
+            this.bgBox.on("touchstart", (event)=>{
                 this._startPoint = event.getLocation();
             })
-            cc.Canvas.instance.node.on("touchend", (event) => {
+            this.bgBox.on("touchend", (event) =>{
                 this._endPoint = event.getLocation();
                 this.reflectTouch();
             })
-            cc.Canvas.instance.node.on("touchcancel", (event) => {
+            this.bgBox.on("touchcancel", (event) =>{
                 this._endPoint = event.getLocation();
                 this.reflectTouch();
             })
         }
-        if (cc.sys.IPAD || cc.sys.DESKTOP_BROWSER) {
-            cc.Canvas.instance.node.on("mousedown", (event) => {
+        if(cc.sys.IPAD || cc.sys.DESKTOP_BROWSER){
+            this.bgBox.on("mousedown", (event) =>{
                 this._isCLick = false;
                 this._startPoint = event.getLocation();
                 this._firstX = this._startPoint.x;
                 this._firstY = this._startPoint.y;
             })
-            cc.Canvas.instance.node.on("mouseup", (event) => {
+            this.bgBox.on("mouseup", (event) =>{
                 this._isCLick = true;
                 this._endPoint = event.getLocation();
                 this._endX = this._startPoint.x - this._endPoint.x;
@@ -198,426 +194,400 @@ cc.Class({
         }
     },
 
-    reflectTouch() {
+    reflectTouch(){
         let startVec = this._startPoint;
         let endVec = this._endPoint;
         let pointsVec = endVec.sub(startVec);
         let vecLength = pointsVec.mag();
-        if (vecLength > MIN_LENGTH) {
-            if (Math.abs(pointsVec.x) > Math.abs(pointsVec.y)) {
-                if (pointsVec.x > 0) this.touchEvent(DIRECTION.RIGHT);
+        if(vecLength > MIN_LENGTH){
+            if(Math.abs(pointsVec.x) > Math.abs(pointsVec.y)) {
+                if(pointsVec.x > 0) this.touchEvent(DIRECTION.RIGHT);
                 else this.touchEvent(DIRECTION.LEFT);
-            } else {
-                if (pointsVec.y > 0) this.touchEvent(DIRECTION.UP);
+            }else{
+                if(pointsVec.y > 0) this.touchEvent(DIRECTION.UP);
                 else this.touchEvent(DIRECTION.DOWN);
             }
         }
     },
 
-    onKeyDown(event) {
-        if (this._isCLick) {
-            if (this._canMove) {
-                this._canMove = false
-                switch (event.keyCode) {
-                    case cc.macro.KEY.right:
+    onKeyDown(event){
+        if(this._isCLick){
+            switch (event.keyCode) {
+                case cc.macro.KEY.right:
+                    if(this._canMove){
+                        this._canMove = false
                         this.blockMoveRight();
-                        break;
-                    case cc.macro.KEY.left:
+                    }
+                    break;
+                case cc.macro.KEY.left:
+                    if(this._canMove){
+                        this._canMove = false
                         this.blockMoveLeft();
-                        break;
-                    case cc.macro.KEY.up:
+                    }
+                    
+                    break;
+                case cc.macro.KEY.up:
+                    if(this._canMove){
+                        this._canMove = false
                         this.blockMoveUp();
-                        break;
-                    case cc.macro.KEY.down:
+                    }
+                    break;
+                case cc.macro.KEY.down:
+                    if(this._canMove){
+                        this._canMove = false
                         this.blockMoveDown();
-                        break;
-                };
-            }
-        }
+                    }
+                    break;
+            };
+        };
+       
     },
 
-    touchEvent(direction) {
-        if (this._canMove) {
-            this._canMove = false
-            switch (direction) {
-                case DIRECTION.RIGHT: {
+    touchEvent(direction){
+        switch(direction){
+            case DIRECTION.RIGHT: {
+                if(this._canMove){
+                    this._canMove = false
                     this.blockMoveRight();
-                    break;
                 }
-                case DIRECTION.LEFT: {
-                    this.blockMoveLeft();
-                    break;
-                }
-                case DIRECTION.UP: {
-                    this.blockMoveUp();
-                    break;
-                }
-                case DIRECTION.DOWN: {
-                    this.blockMoveDown();
-                    break;
-                }
+                break;
             }
-        }
-    },
-
-    mouseEvent() {
-        if (this._vector.mag() > MIN_LENGTH) {
-            if (this._canMove) {
-                let angle = Math.atan2(this._vector.y, this._vector.x);
-                angle = cc.misc.radiansToDegrees(angle)
-                cc.log(angle)
-                this._canMove = false;
-                if ((angle < -135 && angle >= -180) || (angle <= 180 && angle >= 135)) {
-                    this.blockMoveRight();
-                } else if (angle < 45 && angle >= -45) {
+            case DIRECTION.LEFT: {
+                if(this._canMove){
+                    this._canMove = false
                     this.blockMoveLeft();
                 }
-                else if (angle < -45 && angle >= -135) {
+                break;
+            }
+            case DIRECTION.UP: {
+                if(this._canMove){
+                    this._canMove = false
                     this.blockMoveUp();
                 }
-                else if (angle < 135 && angle >= 45) {
+                break;
+            }
+            case DIRECTION.DOWN: {
+                if(this._canMove){
+                    this._canMove = false
                     this.blockMoveDown();
                 }
+                break;
             }
-
         }
     },
 
-    afterMove(hasMoved) {
+    mouseEvent(){
+        if(this._vector.mag() > MIN_LENGTH){
+            if(this._vector.x < 0 && this._vector.y < 50 && this._vector.y > -50){
+                this._canMove = false
+                this.blockMoveRight();
+            }else if(this._vector.x > 0 && this._vector.y < 50 && this._vector.y > -50){
+                this._canMove = false
+                this.blockMoveLeft();
+            }
+            if(this._vector.y < 0 && this._vector.x < 50 && this._vector.x > -50){
+                this._canMove = false
+                this.blockMoveUp();
+            }else if(this._vector.y > 0 && this._vector.x < 50 && this._vector.x > -50){
+                this._canMove = false
+                this.blockMoveDown();
+            }
+        }
+    },
+
+    afterMove(hasMoved){
         this._canMove = true
-        if (this.winLayOut.active || this.loseLayOut.active) this._canMove = false;
-        if (hasMoved) {
+        if(hasMoved){
             this.addBlock();
             this.checkScore();
         }
-    },
-
-    moveBlock(block, position, callback) {
-        let action = cc.moveTo(.05, position);
-        let finish = cc.callFunc(() => {
-            callback && callback();
-        })
-        block.runAction(cc.sequence(action, finish));
-
-
-    },
-
-    combineBlock(b1, b2, num, callback) {
-        this._tempScore += num;
-        this.updateScore(this._score + num);
+        else if(this.checkGameOver()){
+            this.gameOver()
+        }
         this.hoverScore(this._tempScore);
         this._tempScore = 0;
+    },
+
+    moveBlock(block, position, callback){
+        let action = cc.moveTo(.05, position);
+        let finish = cc.callFunc(()=>{
+            callback && callback();
+        })
+        block.runAction(cc.sequence(action, finish,));
+    },
+
+    combineBlock(b1, b2, num, callback){
         b1.destroy();
         let scale1 = cc.scaleTo(0.1, 1.1);
         let scale2 = cc.scaleTo(0.1, 1);
-        let mid = cc.callFunc(() => {
+        let mid = cc.callFunc(()=>{
             b2.getComponent("BlockController").setNumber(num);
         });
-        let finish = cc.callFunc(() => {
+        let finish = cc.callFunc(()=>{
             callback && callback();
         })
-        if (b2 !== null) {
-            b2.runAction(cc.sequence(scale1, mid, scale2, finish));
-        }
-        if (this._first2048) {
-            if (num === 2048) {
-                this.gameWin()
-                this._first2048 = false;
-            }
-        }
-
+        b2.runAction(cc.sequence(scale1, mid, scale2, finish));
+        this.updateScore(this._score + num);
+        this._tempScore += num;
     },
 
-    activeCombine() {
-        for (let i = 0; i < ROWS; i++) {
-            for (let j = 0; j < ROWS; j++) {
-                if (this._data[i][j] !== 0) {
-                    this._arrBlock[i][j].getComponent("BlockController")._canCombine = true;
-                }
-            }
-        }
-    },
-
-    checkGameOver() {
+    checkGameOver(){  
         for (let i = 0; i < ROWS; i++) {
             for (let j = 0; j < ROWS; j++) {
                 let n = this._data[i][j];
-                if (n === 0) return false;
-                if (j > 0 && this._data[i][j - 1] == n) return false;
-                if (j < ROWS - 1 && this._data[i][j + 1] == n) return false;
-                if (i > 0 && this._data[i - 1][j] == n) return false;
-                if (i < ROWS - 1 && this._data[i + 1][j] == n) return false;
-
-            }
+                if(n === 0) return false;
+                if(j > 0 && this._data[i][j - 1] == n) return false;
+                if(j < ROWS - 1 && this._data[i][j + 1] == n) return false;
+                if(i > 0 && this._data[i - 1][j] == n) return false;
+                if(i < ROWS - 1 && this._data[i + 1][j] == n) return false; 
+            }       
         }
         return true;
     },
 
-    blockMoveRight() {
+    blockMoveRight(){
         let hasMoved = false;
-        this.activeCombine()
-        let move = (x, y, callback) => {
-            if (y == ROWS + 1 || this._data[x][y] == 0) {
+        let move = (x ,y ,callback) =>{
+            if(y == ROWS - 1 || this._data[x][y] == 0){
                 callback && callback();
                 return;
-            } else if (this._data[x][y + 1] == 0) {
+            }else if(this._data[x][y + 1] == 0){
                 let block = this._arrBlock[x][y];
                 let position = this._posisions[x][y + 1];
                 this._arrBlock[x][y + 1] = block;
                 this._data[x][y + 1] = this._data[x][y];
                 this._data[x][y] = 0;
                 this._arrBlock[x][y] = null;
-                this.moveBlock(block, position, () => {
+                this.moveBlock(block, position, ()=>{
                     move(x, y + 1, callback);
                 });
                 hasMoved = true;
-            } else if (this._data[x][y + 1] == this._data[x][y]) {
-                callback && callback();
-                if (this._arrBlock[x][y + 1].getComponent("BlockController")._canCombine) {
-                    this._arrBlock[x][y + 1].getComponent("BlockController")._canCombine = false;
-                    let block = this._arrBlock[x][y];
-                    let position = this._posisions[x][y + 1];
-                    this._data[x][y + 1] *= 2;
-                    this._data[x][y] = 0;
-                    this._arrBlock[x][y] = null
-                    this.moveBlock(block, position, () => {
-                        this.combineBlock(block, this._arrBlock[x][y + 1], this._data[x][y + 1], () => {
-                            callback && callback();
-                        })
-                    });
-                    hasMoved = true;
-                }
-
-            } else {
+            }else if(this._data[x][y + 1] == this._data[x][y]){
+                let block = this._arrBlock[x][y];
+                let position = this._posisions[x][y + 1];
+                this._data[x][y + 1] *= 2;
+                this._data[x][y] = 0;
+                this._arrBlock[x][y] = null
+                this.moveBlock(block, position, ()=>{
+                    this.combineBlock(block, this._arrBlock[x][y + 1], this._data[x][y + 1],()=>{
+                        callback && callback();
+                    })
+                });
+                hasMoved = true;
+            }else{
                 callback && callback();
                 return;
             }
         }
-
+        
         let toMove = [];
         for (let i = 0; i < ROWS; i++) {
-            for (let j = ROWS - 1; j >= 0; j--) {
-                if (this._data[i][j] != 0) {
+            for (let j = ROWS - 1; j >= 0; j--){
+                if(this._data[i][j] != 0){
                     toMove.push({
-                        x: i,
-                        y: j,
+                        x : i,
+                        y : j,
                     });
                 }
             }
         }
+
         let count = 0;
         for (let i = 0; i < toMove.length; i++) {
-            move(toMove[i].x, toMove[i].y, () => {
-                count++;
-                if (count === toMove.length) {
+            move(toMove[i].x, toMove[i].y, ()=>{
+                count ++;
+                if(count == toMove.length){
                     this.afterMove(hasMoved);
                 }
             })
         }
     },
 
-    blockMoveLeft() {
+    blockMoveLeft(){
         let hasMoved = false;
-        this.activeCombine()
-        let move = (x, y, callback) => {
-            if (y == 0 || this._data[x][y] == 0) {
+        let move = (x ,y ,callback) =>{
+            if(y == 0 || this._data[x][y] == 0){
                 callback && callback();
                 return;
-            } else if (this._data[x][y - 1] == 0) {
+            }else if(this._data[x][y - 1] == 0){
                 let block = this._arrBlock[x][y];
                 let position = this._posisions[x][y - 1];
                 this._arrBlock[x][y - 1] = block;
                 this._data[x][y - 1] = this._data[x][y];
                 this._data[x][y] = 0;
                 this._arrBlock[x][y] = null;
-                this.moveBlock(block, position, () => {
+                this.moveBlock(block, position, ()=>{
                     move(x, y - 1, callback);
                 });
                 hasMoved = true;
-            } else if (this._data[x][y - 1] == this._data[x][y]) {
-                callback && callback();
-                if (this._arrBlock[x][y - 1].getComponent("BlockController")._canCombine) {
-                    this._arrBlock[x][y - 1].getComponent("BlockController")._canCombine = false
-                    let block = this._arrBlock[x][y];
-                    let position = this._posisions[x][y - 1];
-
-                    this._data[x][y - 1] *= 2;
-                    this._data[x][y] = 0;
-                    this._arrBlock[x][y] = null
-                    this.moveBlock(block, position, () => {
-                        this.combineBlock(block, this._arrBlock[x][y - 1], this._data[x][y - 1], () => {
-                            callback && callback();
-                        })
-                    });
-                    hasMoved = true;
-                }
-
-            } else {
+            }else if(this._data[x][y - 1] == this._data[x][y]){
+                let block = this._arrBlock[x][y];
+                let position = this._posisions[x][y - 1];
+                this._data[x][y - 1] *= 2;
+                this._data[x][y] = 0;
+                this._arrBlock[x][y] = null
+                this.moveBlock(block, position, ()=>{
+                    this.combineBlock(block, this._arrBlock[x][y - 1], this._data[x][y - 1],()=>{
+                        callback && callback();
+                    })
+                });
+                hasMoved = true;
+            }else{
                 callback && callback();
                 return;
             }
         }
         let toMove = [];
         for (let i = 0; i < ROWS; i++) {
-            for (let j = 0; j < ROWS; j++) {
-                if (this._data[i][j] != 0) {
+            for (let j = 0; j < ROWS; j++){
+                if(this._data[i][j] != 0){
                     toMove.push({
-                        x: i,
-                        y: j,
+                        x : i,
+                        y : j,
                     });
                 }
             }
         }
+
         let count = 0;
         for (let i = 0; i < toMove.length; i++) {
-            move(toMove[i].x, toMove[i].y, () => {
-                count++;
-                if (count === toMove.length) {
+            move(toMove[i].x, toMove[i].y, ()=>{
+                count ++;
+                if(count == toMove.length){
                     this.afterMove(hasMoved);
                 }
             })
         }
     },
 
-    blockMoveDown() {
+    blockMoveDown(){
         let hasMoved = false;
-        this.activeCombine()
-        let move = (x, y, callback) => {
-            if (x == ROWS - 1 || this._data[x][y] == 0) {
+        let move = (x ,y ,callback) =>{
+            if(x == ROWS - 1  || this._data[x][y] == 0){
                 callback && callback();
                 return;
-            } else if (this._data[x + 1][y] == 0) {
+            }else if(this._data[x + 1][y] == 0){
                 let block = this._arrBlock[x][y];
                 let position = this._posisions[x + 1][y];
                 this._arrBlock[x + 1][y] = block;
                 this._data[x + 1][y] = this._data[x][y];
                 this._data[x][y] = 0;
                 this._arrBlock[x][y] = null;
-                this.moveBlock(block, position, () => {
+                this.moveBlock(block, position, ()=>{
                     move(x + 1, y, callback);
                 });
                 hasMoved = true;
-            } else if (this._data[x + 1][y] == this._data[x][y]) {
-                callback && callback();
-                if (this._arrBlock[x + 1][y].getComponent("BlockController")._canCombine) {
-                    this._arrBlock[x + 1][y].getComponent("BlockController")._canCombine = false;
-                    let block = this._arrBlock[x][y];
-                    let position = this._posisions[x + 1][y];
-                    this._data[x + 1][y] *= 2;
-                    this._data[x][y] = 0;
-                    this._arrBlock[x][y] = null
-                    this.moveBlock(block, position, () => {
-                        this.combineBlock(block, this._arrBlock[x + 1][y], this._data[x + 1][y], () => {
-                            callback && callback();
-                        })
-                    });
-                    hasMoved = true;
-                }
-
-            } else {
+            }else if(this._data[x + 1][y] == this._data[x][y]){
+                let block = this._arrBlock[x][y];
+                let position = this._posisions[x + 1][y];
+                this._data[x + 1][y] *= 2;
+                this._data[x][y] = 0;
+                this._arrBlock[x][y] = null
+                this.moveBlock(block, position, ()=>{
+                    this.combineBlock(block, this._arrBlock[x + 1][y], this._data[x + 1][y],()=>{
+                        callback && callback();
+                    })
+                });
+                hasMoved = true;
+            }else{
                 callback && callback();
                 return;
             }
         }
         let toMove = [];
         for (let i = ROWS - 1; i >= 0; i--) {
-            for (let j = 0; j < ROWS; j++) {
-                if (this._data[i][j] != 0) {
+            for (let j = 0; j < ROWS; j++){
+                if(this._data[i][j] != 0){
                     toMove.push({
-                        x: i,
-                        y: j,
+                        x : i,
+                        y : j,
                     });
                 }
             }
         }
         let count = 0;
         for (let i = 0; i < toMove.length; i++) {
-            move(toMove[i].x, toMove[i].y, () => {
-                count++;
-                if (count === toMove.length) {
+            move(toMove[i].x, toMove[i].y, ()=>{
+                count ++;
+                if(count == toMove.length){
                     this.afterMove(hasMoved);
                 }
             })
         }
     },
 
-    blockMoveUp() {
+    blockMoveUp(){
         let hasMoved = false;
-        this.activeCombine()
-        let move = (x, y, callback) => {
-            if (x == 0 || this._data[x][y] == 0) {
+        let move = (x ,y ,callback) =>{
+            if(x == 0  || this._data[x][y] == 0){
                 callback && callback();
                 return;
-            } else if (this._data[x - 1][y] == 0) {
+            }else if(this._data[x - 1][y] == 0){
                 let block = this._arrBlock[x][y];
                 let position = this._posisions[x - 1][y];
                 this._arrBlock[x - 1][y] = block;
                 this._data[x - 1][y] = this._data[x][y];
                 this._data[x][y] = 0;
                 this._arrBlock[x][y] = null;
-                this.moveBlock(block, position, () => {
+                this.moveBlock(block, position, ()=>{
                     move(x - 1, y, callback);
                 });
                 hasMoved = true;
-            } else if (this._data[x - 1][y] == this._data[x][y]) {
-                callback && callback();
-                if (this._arrBlock[x - 1][y].getComponent("BlockController")._canCombine) {
-                    this._arrBlock[x - 1][y].getComponent("BlockController")._canCombine = false;
-                    let block = this._arrBlock[x][y];
-                    let position = this._posisions[x - 1][y];
-                    this._data[x - 1][y] *= 2;
-                    this._data[x][y] = 0;
-                    this._arrBlock[x][y] = null
-                    this.moveBlock(block, position, () => {
-                        this.combineBlock(block, this._arrBlock[x - 1][y], this._data[x - 1][y], () => {
-                            callback && callback();
-                        })
-                    });
-                    hasMoved = true;
-                }
-
-            } else {
+            }else if(this._data[x - 1][y] == this._data[x][y]){
+                let block = this._arrBlock[x][y];
+                let position = this._posisions[x - 1][y];
+                this._data[x - 1][y] *= 2;
+                this._data[x][y] = 0;
+                this._arrBlock[x][y] = null
+                this.moveBlock(block, position, ()=>{
+                    this.combineBlock(block, this._arrBlock[x - 1][y], this._data[x - 1][y],()=>{
+                        callback && callback();
+                    })
+                });
+                hasMoved = true;
+            }else{
                 callback && callback();
                 return;
             }
         }
         let toMove = [];
         for (let i = 0; i < ROWS; i++) {
-            for (let j = 0; j < ROWS; j++) {
-                if (this._data[i][j] != 0) {
+            for (let j = 0; j < ROWS; j++){
+                if(this._data[i][j] != 0){
                     toMove.push({
-                        x: i,
-                        y: j,
+                        x : i,
+                        y : j,
                     });
                 }
             }
         }
         let count = 0;
         for (let i = 0; i < toMove.length; i++) {
-            move(toMove[i].x, toMove[i].y, () => {
-                count++;
-                if (count === toMove.length) {
+            move(toMove[i].x, toMove[i].y, ()=>{
+                count ++;
+                if(count == toMove.length){
                     this.afterMove(hasMoved);
                 }
             })
         }
     },
 
-    gameOver() {
+    gameOver(){
         cc.tween(this.node)
-            .to(.5, { opacity: 150 })
+            .to(.5,{opacity:150})
             .start()
         this.loseLayOut.active = true;
     },
 
-    gameWin() {
+    gameWin(){
+        this._canMove = false;
         cc.tween(this.node)
-            .to(1, { opacity: 150 })
+            .to(.5,{opacity:150})
             .start()
         this.winLayOut.active = true;
     },
 
-    onRestartClick() {
+    onRestartClick(){
         this._canMove = true;
         this.blockInit();
         this.init();
@@ -626,27 +596,26 @@ cc.Class({
         this.winLayOut.active = false
     },
 
-    onContinueClick() {
+    onContinueClick(){
         this._canMove = true;
         this.node.opacity = 255;
         this.winLayOut.active = false
     },
 
-    getScoreStorge() {
+    getScoreStorge(){
         let scoreStorge = cc.sys.localStorage.getItem('bestScore');
-        if (scoreStorge !== null) {
+        if(scoreStorge !== null){
             this.bestScoreLabel.string = JSON.parse(scoreStorge);
-        } else {
+        }else{
             this.bestScoreLabel.string = 0;
         }
     },
 
-    checkScore() {
+    checkScore(){
         let newScore = parseInt(this.scoreLabel.string);
-        if (newScore > this.bestScoreLabel.string) {
+        if(newScore > this.bestScoreLabel.string){
             cc.sys.localStorage.setItem('bestScore', JSON.stringify(newScore));
             this.bestScoreLabel.string = newScore;
         }
     },
-
 });
