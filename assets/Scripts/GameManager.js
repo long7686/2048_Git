@@ -40,9 +40,11 @@ cc.Class({
         _vector : null,
         _isCLick : true,
         _tempScore : 0,
+        _canWin: true,
     },
 
     onLoad(){
+        _canWin: true;
         this._canMove = true;
         this.loseLayOut.active = false;
         this._isCLick = true;
@@ -51,7 +53,6 @@ cc.Class({
     
     start () {
         this._blockSize = (this.bgBox.width - this._gap * 5) / 4;
-       
         this.eventHandler();
         this.getScoreStorge();
         this.blockInit();
@@ -72,6 +73,7 @@ cc.Class({
     init(){
         this.updateScore(0);
         this._data = this. arrInit(ROWS, ROWS);
+          
         for (let row = 0; row < ROWS; row++) {
             for (let col = 0; col < ROWS; col++) {
                 this._arrBlock[row][col].getComponent("BlockController").setNumber(0);    
@@ -85,7 +87,6 @@ cc.Class({
 
     blockInit(){
         this._arrBlock = this.arrInit(ROWS, ROWS);
-
         for(let i = 0; i < ROWS; i++){
             this._posisions.push([0,0,0,0]);
             for(let j = 0; j < ROWS; j++){
@@ -98,10 +99,9 @@ cc.Class({
                 block.setPosition(cc.v2(x, y));
                 this._posisions[i][j] = (cc.v2(x, y));
                 block.getComponent("BlockController").setNumber(0);
-                this._arrBlock[i][j] = (block);
+                this._arrBlock[i][j] = block;
             }
         }
-       
     },
 
     getEmptyLocations(){
@@ -137,6 +137,10 @@ cc.Class({
         block.getComponent("BlockController").setNumber(number);
         this._arrBlock[x][y] = block;
         this._data[x][y] = number;
+
+        if(this.checkGameOver()){
+            this.gameOver()
+        }
 
         return true;
     },
@@ -212,85 +216,75 @@ cc.Class({
 
     onKeyDown(event){
         if(this._isCLick){
-            switch (event.keyCode) {
-                case cc.macro.KEY.right:
-                    if(this._canMove){
-                        this._canMove = false
-                        this.blockMoveRight();
-                    }
-                    break;
-                case cc.macro.KEY.left:
-                    if(this._canMove){
-                        this._canMove = false
-                        this.blockMoveLeft();
-                    }
-                    
-                    break;
-                case cc.macro.KEY.up:
-                    if(this._canMove){
-                        this._canMove = false
-                        this.blockMoveUp();
-                    }
-                    break;
-                case cc.macro.KEY.down:
-                    if(this._canMove){
-                        this._canMove = false
-                        this.blockMoveDown();
-                    }
-                    break;
-            };
+            if (this._canMove && !this.winLayOut.active){
+                switch (event.keyCode) {
+                    case cc.macro.KEY.right:
+                            this._canMove = false
+                            this.blockMoveRight();            
+                        break;
+                    case cc.macro.KEY.left:
+                            this._canMove = false
+                            this.blockMoveLeft();           
+                        break;
+                    case cc.macro.KEY.up:
+                            this._canMove = false
+                            this.blockMoveUp();        
+                        break;
+                    case cc.macro.KEY.down:
+                            this._canMove = false
+                            this.blockMoveDown();
+                        break;
+                };
+            }
         };
        
     },
 
     touchEvent(direction){
-        switch(direction){
-            case DIRECTION.RIGHT: {
-                if(this._canMove){
-                    this._canMove = false
-                    this.blockMoveRight();
+        if (this._canMove && !this.winLayOut.active){
+            switch(direction){
+                case DIRECTION.RIGHT: {
+                        this._canMove = false
+                        this.blockMoveRight();
+                    break;
                 }
-                break;
-            }
-            case DIRECTION.LEFT: {
-                if(this._canMove){
-                    this._canMove = false
-                    this.blockMoveLeft();
+                case DIRECTION.LEFT: {
+                        this._canMove = false
+                        this.blockMoveLeft();
+                    break;
                 }
-                break;
-            }
-            case DIRECTION.UP: {
-                if(this._canMove){
-                    this._canMove = false
-                    this.blockMoveUp();
+                case DIRECTION.UP: {
+                        this._canMove = false
+                        this.blockMoveUp();
+                    break;
                 }
-                break;
-            }
-            case DIRECTION.DOWN: {
-                if(this._canMove){
-                    this._canMove = false
-                    this.blockMoveDown();
+                case DIRECTION.DOWN: {
+                        this._canMove = false
+                        this.blockMoveDown();
+                    
+                    break;
                 }
-                break;
             }
         }
     },
 
     mouseEvent(){
         if(this._vector.mag() > MIN_LENGTH){
-            if(this._vector.x < 0 && this._vector.y < 50 && this._vector.y > -50){
-                this._canMove = false
-                this.blockMoveRight();
-            }else if(this._vector.x > 0 && this._vector.y < 50 && this._vector.y > -50){
-                this._canMove = false
-                this.blockMoveLeft();
-            }
-            if(this._vector.y < 0 && this._vector.x < 50 && this._vector.x > -50){
-                this._canMove = false
-                this.blockMoveUp();
-            }else if(this._vector.y > 0 && this._vector.x < 50 && this._vector.x > -50){
-                this._canMove = false
-                this.blockMoveDown();
+            if (this._canMove && !this.winLayOut.active){
+                if(this._vector.x < 0 && this._vector.y < 50 && this._vector.y > -50){
+                    this._canMove = false
+                    this.blockMoveRight();
+                }else if(this._vector.x > 0 && this._vector.y < 50 && this._vector.y > -50){
+                    this._canMove = false
+                    this.blockMoveLeft();
+                }
+                if(this._vector.y < 0 && this._vector.x < 50 && this._vector.x > -50){
+                    this._canMove = false
+                    this.blockMoveUp();
+                }else if(this._vector.y > 0 && this._vector.x < 50 && this._vector.x > -50){
+                    this._canMove = false
+                    this.blockMoveDown();
+                }
             }
         }
     },
@@ -301,9 +295,7 @@ cc.Class({
             this.addBlock();
             this.checkScore();
         }
-        else if(this.checkGameOver()){
-            this.gameOver()
-        }
+
         this.hoverScore(this._tempScore);
         this._tempScore = 0;
     },
@@ -318,6 +310,7 @@ cc.Class({
 
     combineBlock(b1, b2, num, callback){
         b1.destroy();
+        b2.getComponent("BlockController")._canCombine = false
         let scale1 = cc.scaleTo(0.1, 1.1);
         let scale2 = cc.scaleTo(0.1, 1);
         let mid = cc.callFunc(()=>{
@@ -329,6 +322,20 @@ cc.Class({
         b2.runAction(cc.sequence(scale1, mid, scale2, finish));
         this.updateScore(this._score + num);
         this._tempScore += num;
+        if (num === 32 && this._canWin){
+            this._canWin = false;
+            this.gameWin()
+        }
+    },
+
+    activeCombine(){
+        for (let i = 0; i < ROWS; i++){
+            for (let j = 0; j < ROWS; j++){
+                if (this._data[i][j] !== 0){
+                    this._arrBlock[i][j].getComponent("BlockController")._canCombine = true
+                }
+            }
+        }
     },
 
     checkGameOver(){  
@@ -345,8 +352,9 @@ cc.Class({
         return true;
     },
 
-    blockMoveRight(){
+    blockMoveRight(){ 
         let hasMoved = false;
+        this.activeCombine()
         let move = (x ,y ,callback) =>{
             if(y == ROWS - 1 || this._data[x][y] == 0){
                 callback && callback();
@@ -363,17 +371,20 @@ cc.Class({
                 });
                 hasMoved = true;
             }else if(this._data[x][y + 1] == this._data[x][y]){
-                let block = this._arrBlock[x][y];
-                let position = this._posisions[x][y + 1];
-                this._data[x][y + 1] *= 2;
-                this._data[x][y] = 0;
-                this._arrBlock[x][y] = null
-                this.moveBlock(block, position, ()=>{
-                    this.combineBlock(block, this._arrBlock[x][y + 1], this._data[x][y + 1],()=>{
-                        callback && callback();
-                    })
-                });
-                hasMoved = true;
+                if(this._arrBlock[x][y + 1].getComponent("BlockController")._canCombine){
+                    let block = this._arrBlock[x][y];
+                    let position = this._posisions[x][y + 1];
+                    this._data[x][y + 1] *= 2;
+                    this._data[x][y] = 0;
+                    this._arrBlock[x][y] = null
+                    this.moveBlock(block, position, ()=>{
+                        this.combineBlock(block, this._arrBlock[x][y + 1], this._data[x][y + 1],()=>{
+                            callback && callback();
+                        })
+                    });
+                    hasMoved = true;
+                }
+                else callback&&callback()
             }else{
                 callback && callback();
                 return;
@@ -405,6 +416,7 @@ cc.Class({
 
     blockMoveLeft(){
         let hasMoved = false;
+        this.activeCombine()
         let move = (x ,y ,callback) =>{
             if(y == 0 || this._data[x][y] == 0){
                 callback && callback();
@@ -420,18 +432,21 @@ cc.Class({
                     move(x, y - 1, callback);
                 });
                 hasMoved = true;
-            }else if(this._data[x][y - 1] == this._data[x][y]){
-                let block = this._arrBlock[x][y];
-                let position = this._posisions[x][y - 1];
-                this._data[x][y - 1] *= 2;
-                this._data[x][y] = 0;
-                this._arrBlock[x][y] = null
-                this.moveBlock(block, position, ()=>{
-                    this.combineBlock(block, this._arrBlock[x][y - 1], this._data[x][y - 1],()=>{
-                        callback && callback();
-                    })
-                });
-                hasMoved = true;
+            }else if(this._data[x][y - 1] == this._data[x][y]){ 
+                if(this._arrBlock[x][y - 1].getComponent("BlockController")._canCombine){
+                    let block = this._arrBlock[x][y];
+                    let position = this._posisions[x][y - 1];
+                    this._data[x][y - 1] *= 2;
+                    this._data[x][y] = 0;
+                    this._arrBlock[x][y] = null
+                    this.moveBlock(block, position, ()=>{
+                        this.combineBlock(block, this._arrBlock[x][y - 1], this._data[x][y - 1],()=>{
+                            callback && callback();
+                        })
+                    });
+                    hasMoved = true;
+                }
+                else callback&&callback()
             }else{
                 callback && callback();
                 return;
@@ -462,6 +477,7 @@ cc.Class({
 
     blockMoveDown(){
         let hasMoved = false;
+        this.activeCombine()
         let move = (x ,y ,callback) =>{
             if(x == ROWS - 1  || this._data[x][y] == 0){
                 callback && callback();
@@ -478,17 +494,20 @@ cc.Class({
                 });
                 hasMoved = true;
             }else if(this._data[x + 1][y] == this._data[x][y]){
-                let block = this._arrBlock[x][y];
-                let position = this._posisions[x + 1][y];
-                this._data[x + 1][y] *= 2;
-                this._data[x][y] = 0;
-                this._arrBlock[x][y] = null
-                this.moveBlock(block, position, ()=>{
-                    this.combineBlock(block, this._arrBlock[x + 1][y], this._data[x + 1][y],()=>{
-                        callback && callback();
-                    })
-                });
-                hasMoved = true;
+                if (this._arrBlock[x +1 ][y].getComponent("BlockController")._canCombine){
+                    let block = this._arrBlock[x][y];
+                    let position = this._posisions[x + 1][y];
+                    this._data[x + 1][y] *= 2;
+                    this._data[x][y] = 0;
+                    this._arrBlock[x][y] = null
+                    this.moveBlock(block, position, ()=>{
+                        this.combineBlock(block, this._arrBlock[x + 1][y], this._data[x + 1][y],()=>{
+                            callback && callback();
+                        })
+                    });
+                    hasMoved = true;
+                }
+                else callback&&callback()
             }else{
                 callback && callback();
                 return;
@@ -518,6 +537,7 @@ cc.Class({
 
     blockMoveUp(){
         let hasMoved = false;
+        this.activeCombine()
         let move = (x ,y ,callback) =>{
             if(x == 0  || this._data[x][y] == 0){
                 callback && callback();
@@ -534,17 +554,20 @@ cc.Class({
                 });
                 hasMoved = true;
             }else if(this._data[x - 1][y] == this._data[x][y]){
-                let block = this._arrBlock[x][y];
-                let position = this._posisions[x - 1][y];
-                this._data[x - 1][y] *= 2;
-                this._data[x][y] = 0;
-                this._arrBlock[x][y] = null
-                this.moveBlock(block, position, ()=>{
-                    this.combineBlock(block, this._arrBlock[x - 1][y], this._data[x - 1][y],()=>{
-                        callback && callback();
-                    })
-                });
-                hasMoved = true;
+                if(this._arrBlock[x - 1][y].getComponent("BlockController")._canCombine){
+                    let block = this._arrBlock[x][y];
+                    let position = this._posisions[x - 1][y];
+                    this._data[x - 1][y] *= 2;
+                    this._data[x][y] = 0;
+                    this._arrBlock[x][y] = null
+                    this.moveBlock(block, position, ()=>{
+                        this.combineBlock(block, this._arrBlock[x - 1][y], this._data[x - 1][y],()=>{
+                            callback && callback();
+                        })
+                    });
+                    hasMoved = true;
+                }
+                else callback&&callback()
             }else{
                 callback && callback();
                 return;
@@ -588,7 +611,13 @@ cc.Class({
     },
 
     onRestartClick(){
+        for (let i = 0; i < this.bgBox.children.length; i++){
+                if (this.bgBox.children[i] !== null){
+                    this.bgBox.children[i].destroy()
+            }
+        }
         this._canMove = true;
+        this._canWin = true;
         this.blockInit();
         this.init();
         this.node.opacity = 255;
