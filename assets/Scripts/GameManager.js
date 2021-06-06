@@ -20,6 +20,7 @@ cc.Class({
         loseLayOut: cc.Node,
         winLayOut: cc.Node,
         hoverScorePrefab: cc.Prefab,
+        newGameBtn : cc.Button,
 
         _gap: {
             default: 10,
@@ -49,7 +50,6 @@ cc.Class({
         this.loseLayOut.active = false;
         this._isCLick = true;
         this._tempScore = 0;
-        cc.log("onload")
     },
 
     start() {
@@ -58,7 +58,6 @@ cc.Class({
         this.getScoreStorge();
         this.blockInit();
         this.init();
-        cc.log("start")
     },
 
     arrInit(x, y) {
@@ -602,6 +601,7 @@ cc.Class({
             .to(.5, { opacity: 150 })
             .start()
         this.loseLayOut.active = true;
+        this.newGameBtn.getComponent(cc.Button).interactable = false;
     },
 
     gameWin() {
@@ -610,6 +610,7 @@ cc.Class({
             .to(.5, { opacity: 150 })
             .start()
         this.winLayOut.active = true;
+        this.newGameBtn.getComponent(cc.Button).interactable = false;
     },
 
     onRestartClick() {
