@@ -13,12 +13,12 @@ cc.Class({
         titleBlock: {
             default: null,
             type: cc.Label,
-            _canCombine: false
+            _canCombine: true
         }
     },
 
     onLoad: function onLoad() {
-        this._canCombine = false;
+        this._canCombine = true;
     },
     setNumber: function setNumber(number) {
         if (number === 0) {
