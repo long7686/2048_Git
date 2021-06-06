@@ -323,7 +323,7 @@ cc.Class({
         b2.runAction(cc.sequence(scale1, mid, scale2, finish));
         this.updateScore(this._score + num);
         this._tempScore += num;
-        if (num === 2048 && this._canWin) {
+        if (num === 32 && this._canWin) {
             this._canWin = false;
             this.gameWin()
         }
@@ -626,12 +626,14 @@ cc.Class({
         this.node.opacity = 255;
         this.loseLayOut.active = false
         this.winLayOut.active = false
+        this.newGameBtn.getComponent(cc.Button).interactable = true;
     },
 
     onContinueClick() {
         this._canMove = true;
         this.node.opacity = 255;
         this.winLayOut.active = false
+        this.newGameBtn.getComponent(cc.Button).interactable = true;
     },
 
     getScoreStorge() {
